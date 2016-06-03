@@ -1,41 +1,41 @@
-import { Router, Application} from "express";
+import { Router, Application } from "express";
 
-const controller: (path: string) => ClassDecorator
+declare const controller: (path: string) => ClassDecorator
 
-const route: (method: string, path: string) => MethodDecorator
-const middleware: (fn: Function|string) => MethodDecorator
-const use: MethodDecorator
+declare const route: (method: string, path: string) => MethodDecorator
+declare const middleware: (fn: Function|string) => MethodDecorator
+declare const use: MethodDecorator
 
-const all: (path: string) => MethodDecorator
-const checkout: (path: string) => MethodDecorator
-const connect: (path: string) => MethodDecorator
-const copy: (path: string) => MethodDecorator
-const deleteM: (path: string) => MethodDecorator
-const get: (path: string) => MethodDecorator
-const head: (path: string) => MethodDecorator
-const lock: (path: string) => MethodDecorator
-const merge: (path: string) => MethodDecorator
-const mkactivity: (path: string) => MethodDecorator
-const mkcol: (path: string) => MethodDecorator
-const move: (path: string) => MethodDecorator
-const msearch: (path: string) => MethodDecorator
-const notify: (path: string) => MethodDecorator
-const options: (path: string) => MethodDecorator
-const param: (path: string) => MethodDecorator
-const patch: (path: string) => MethodDecorator
-const post: (path: string) => MethodDecorator
-const propfind: (path: string) => MethodDecorator
-const proppatch: (path: string) => MethodDecorator
-const purge: (path: string) => MethodDecorator
-const put: (path: string) => MethodDecorator
-const report: (path: string) => MethodDecorator
-const search: (path: string) => MethodDecorator
-const subscribe: (path: string) => MethodDecorator
-const trace: (path: string) => MethodDecorator
-const unlock: (path: string) => MethodDecorator
-const unsubscribe: (path: string) => MethodDecorator
+declare const all: (path: string) => MethodDecorator
+declare const checkout: (path: string) => MethodDecorator
+declare const connect: (path: string) => MethodDecorator
+declare const copy: (path: string) => MethodDecorator
+declare const deleteM: (path: string) => MethodDecorator
+declare const get: (path: string) => MethodDecorator
+declare const head: (path: string) => MethodDecorator
+declare const lock: (path: string) => MethodDecorator
+declare const merge: (path: string) => MethodDecorator
+declare const mkactivity: (path: string) => MethodDecorator
+declare const mkcol: (path: string) => MethodDecorator
+declare const move: (path: string) => MethodDecorator
+declare const msearch: (path: string) => MethodDecorator
+declare const notify: (path: string) => MethodDecorator
+declare const options: (path: string) => MethodDecorator
+declare const param: (path: string) => MethodDecorator
+declare const patch: (path: string) => MethodDecorator
+declare const post: (path: string) => MethodDecorator
+declare const propfind: (path: string) => MethodDecorator
+declare const proppatch: (path: string) => MethodDecorator
+declare const purge: (path: string) => MethodDecorator
+declare const put: (path: string) => MethodDecorator
+declare const report: (path: string) => MethodDecorator
+declare const search: (path: string) => MethodDecorator
+declare const subscribe: (path: string) => MethodDecorator
+declare const trace: (path: string) => MethodDecorator
+declare const unlock: (path: string) => MethodDecorator
+declare const unsubscribe: (path: string) => MethodDecorator
 
-const register: (app: Router|Application, any) => void
+declare const register: (app: Router|Application, any) => void
 
 export {
   controller,
