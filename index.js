@@ -84,6 +84,7 @@ function setRoute(target, key, value) {
 
 
 function route(method, path) {
+  path = path === undefined ? '/' : path;
   return function (target, key, descriptor) {
     setRoute(target, key, {method: method, path: path, handlers: [descriptor.value]});
     return descriptor;
