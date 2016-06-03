@@ -18,50 +18,53 @@ function trimslash(s) {
     : s;
 }
 
+function register(router, controller) {
+  if (controller.routes) {
+    var context = controller;
+
+    for (var k in controller.routes) {
+      var route = controller.routes[k];
+      var url = route.path;
+
+      if (route.method !== 'param' && _.isString(url)) {
+        url = (trimslash(controller.baseUrl) + trimslash(url)) || '/';
+      }
+
+      // var is tricky :(
+      var args = route.handlers.map((function (route, url) {
+        return function (handler) {
+          return function (request, response, next) {
+            debugHandlers(route.method.toUpperCase() + ' ' + (url ? url + ' ' : '')
+              + handler.name);
+
+            var result = handler.apply(context, arguments);
+
+            if (typeof result !== 'undefined' && result !== null && typeof result.then === 'function') {
+              result.then(undefined, next);
+            }
+          };
+        };
+      })(route, url));
+
+      debugRoutes(route.method.toUpperCase() + ' ' + (url ? url + ' ' : '')
+        + route.handlers[route.handlers.length - 1].name)
+
+      if (url) {
+        args.unshift(url);
+      }
+
+      router[route.method].apply(router, args);
+    }
+  }
+}
 
 function controller(baseUrl) {
+  baseUrl = baseUrl === undefined ? '/' : baseUrl;
   return function (target) {
     target.prototype.baseUrl = baseUrl;
-
     target.prototype.register = function (router) {
-      if (this.routes) {
-        var context = this;
-
-        for (var k in this.routes) {
-          var route = this.routes[k];
-          var url = route.path;
-
-          if (route.method !== 'param' && _.isString(url)) {
-            url = (trimslash(this.baseUrl) + trimslash(url)) || '/';
-          }
-
-          // var is tricky :(
-          var args = route.handlers.map((function (route, url) {
-            return function (handler) {
-              return function (request, response, next) {
-                debugHandlers(route.method.toUpperCase() + ' ' + (url ? url + ' ' : '')
-                  + handler.name);
-
-                var result = handler.apply(context, arguments);
-
-                if (typeof result !== 'undefined' && result !== null && typeof result.then === 'function') {
-                  result.then(undefined, next);
-                }
-              };
-            };
-          })(route, url));
-
-          debugRoutes(route.method.toUpperCase() + ' ' + (url ? url + ' ' : '')
-            + route.handlers[route.handlers.length - 1].name)
-
-          if (url) {
-            args.unshift(url);
-          }
-
-          router[route.method].apply(router, args);
-        }
-      }
-    };
+      register(router, this);
+    }
   };
 };
 
@@ -82,6 +85,7 @@ function setRoute(target, key, value) {
 
 
 function route(method, path) {
+  path = path === undefined ? '/' : path;
   return function (target, key, descriptor) {
     setRoute(target, key, {method: method, path: path, handlers: [descriptor.value]});
     return descriptor;
@@ -135,3 +139,4 @@ methods.forEach(function (method) {
 });
 
 module.exports.use = use;
+module.exports.register = register;
