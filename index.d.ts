@@ -1,6 +1,6 @@
 import { Router, Application } from "express";
 
-declare const controller: (path: string) => ClassDecorator
+declare const controller: (path?: string) => ClassDecorator
 
 declare const route: (method: string, path: string) => MethodDecorator
 declare const middleware: (fn: Function|string) => MethodDecorator
