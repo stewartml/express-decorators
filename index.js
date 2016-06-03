@@ -59,6 +59,7 @@ function register(router, controller) {
 }
 
 function controller(baseUrl) {
+  baseUrl = baseUrl === undefined ? '/' : baseUrl;
   return function (target) {
     target.prototype.baseUrl = baseUrl;
     target.prototype.register = function (router) {
