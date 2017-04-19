@@ -22,6 +22,9 @@
     "supertest-as-promised": "^2.0.2",
     "typescript": "^2.1.4"
   },
+  "peerDependencies": {
+    "express": "4.x"
+  },
   "scripts": {
     "test": "ava dist/test/**/*.js",
     "prepublish": "tsc"
