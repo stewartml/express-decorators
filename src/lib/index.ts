@@ -71,7 +71,7 @@ export function patch(path: string = '*', middleware: Middleware[] = []) {
 }
 
 export function del(path: string = '*', middleware: Middleware[] = []) {
-  return route('del', path, middleware);
+  return route('delete', path, middleware);
 }
 
 export function options(path: string = '*', middleware: Middleware[] = []) {
